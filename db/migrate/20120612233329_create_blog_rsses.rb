@@ -7,5 +7,6 @@ class CreateBlogRsses < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :blog_rsses, :url, :unique => true
   end
 end
