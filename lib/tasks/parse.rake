@@ -8,7 +8,7 @@ namespace :parse do
   desc "process"
   task :process => :environment do
     oauth = Weibo::OAuth.new(Weibo::Config.api_key, Weibo::Config.api_secret)    
-    oauth.authorize_from_access("aadd2a1ee9fbf01270c34d6cec808a61", "bc4a7efbbab850bd28550eeae89f0a6a")
+    oauth.authorize_from_access("e89ecb4e21b8f0ccc987b9bc9013c8e8", "eeb961c983124e9559b78f34a55ea3d8")
     weibo_api = Weibo::Base.new(oauth)
     BlogRss.find_each do |rss|
       send_at_message(weibo_api, rss)
