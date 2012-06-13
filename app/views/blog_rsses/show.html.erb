@@ -1,0 +1,13 @@
+<p>
+  <b>Url:</b>
+  <%= @blog_rss.url %>
+</p>
+
+<p>
+  <b>Username:</b>
+  <%= @blog_rss.username %>
+</p>
+
+
+<%= link_to 'Edit', edit_blog_rss_path(@blog_rss) %> |
+<%= link_to 'Back', blog_rsses_path %>

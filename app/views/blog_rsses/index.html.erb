@@ -1,0 +1,23 @@
+<h1>Listing blog_rsses</h1>
+
+<table>
+  <tr>
+    <th>Url</th>
+    <th>Username</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @blog_rsses.each do |blog_rss| %>
+  <tr>
+    <td><%= blog_rss.url %></td>
+    <td><%= blog_rss.username %></td>
+    <td><%= link_to 'Destroy', blog_rss, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Blog rss', new_blog_rss_path %>
