@@ -34,6 +34,7 @@ namespace :parse do
         name = name.first
         # puts name
         # unless name.include?('，') || name.include?('。') || name.include?('？') || name.include?('（') || name.include?('）')
+        next if at_list.include? name
         puts name
         at_list << "@#{name}"
         begin
