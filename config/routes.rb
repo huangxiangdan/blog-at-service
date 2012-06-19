@@ -5,4 +5,6 @@ BlogService::Application.routes.draw do
   match 'auth/:provider/callback', :to => 'sessions#create'
   match 'weibo', :to => 'sessions#weibo'
   match 'register', :to => 'blog_rsses#index'
+
+  root :to => "blog_rsses#index"
 end

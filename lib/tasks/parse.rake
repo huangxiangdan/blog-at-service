@@ -17,16 +17,18 @@ namespace :parse do
   
   private 
   def send_at_message(weibo_api, blog_rss)
-    feed = RSS::Parser.parse(open(blog_rss.url).read, false)   
+    feed = RSS::Parser.parse(open(blog_rss.url).read, false) 
     # puts feed.inspect
     # puts feed.channel.lastBuildDate
     title = feed.channel.title
-    
-    items = feed.items.sort{|a, b|b.pubDate <=> a.pubDate}
+
+    author_name = blog_rss.username.blank? ? title : "@#{blog_rss.username} "
+    last_rss_pub_date = blog_rss.rss_items.any? ? blog_rss.rss_items.first.pub_date : blog_rss.created_at
+
+    items = feed.items.delete_if {|x| x.pubDate.to_i <= last_rss_pub_date.to_i}
+    items = items.sort{|a, b|a.pubDate <=> b.pubDate}
     
     items.each_with_index do |item, i|
-      break if item.pubDate < blog_rss.created_at
-      break if RssItem.all.first && item.pubDate <= RssItem.all.first.pub_date
       at_list = []
       # puts item.pubDate.inspect
       # puts item.description
@@ -34,13 +36,13 @@ namespace :parse do
         name = name.first
         # puts name
         # unless name.include?('，') || name.include?('。') || name.include?('？') || name.include?('（') || name.include?('）')
-        next if at_list.include? name
+        next if at_list.include? "@#{name}"
         puts name
         at_list << "@#{name}"
         begin
-          content = "@#{name},博客at工具提醒您, #{title}在文章#{item.link}中提到了您。"
+          content = "@#{name},博客at工具提醒您, #{author_name}在文章#{item.link}中提到了您。"
           puts content
-          weibo_api.update(content)
+          # weibo_api.update(content)
           sleep(5)
         rescue Exception => ex
           puts ex
