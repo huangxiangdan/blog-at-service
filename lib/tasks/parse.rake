@@ -42,7 +42,7 @@ namespace :parse do
         begin
           content = "@#{name},博客at工具提醒您, #{author_name}在文章#{item.link}中提到了您。"
           puts content
-          # weibo_api.update(content)
+          weibo_api.update(content)
           sleep(5)
         rescue Exception => ex
           puts ex
