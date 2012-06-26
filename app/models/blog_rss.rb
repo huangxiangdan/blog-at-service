@@ -6,8 +6,7 @@ class BlogRss < ActiveRecord::Base
   
   def is_valid?
     begin
-      feed = SimpleRSS.parse(open(url))  
-      feed && feed.channel
+      SimpleRSS.parse(open(url))  
     rescue Exception => ex
       puts ex
       false

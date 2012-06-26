@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'weibo'
 gem 'omniauth-weibo'
 gem 'simple-rss'
+gem 'feedzirra'
 
 gem 'json'
 
