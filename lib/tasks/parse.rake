@@ -39,7 +39,8 @@ namespace :parse do
       at_list = []
       # puts item.pubDate.inspect
       # puts item.description
-      item.content.scan(/@([0-9a-zA-Z\u4e00-\u9fff]+)[\s@]/u) do |name|
+      rss_content = item.content || item.summary
+      rss_content.scan(/@([0-9a-zA-Z\u4e00-\u9fff]+)[\s@]/u) do |name|
         name = name.first
         name = name + " "
         # puts name
